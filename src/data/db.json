@@ -1,4 +1,3 @@
-
 {
   "users": [
     {
@@ -46,7 +45,8 @@
       "rating": 8.2,
       "duration": 125,
       "watched": true,
-      "type": "Film"
+      "type": "Film",
+      "plateform": "Netflix"
     },
     {
       "id": "f2",
@@ -56,7 +56,8 @@
       "rating": 7.6,
       "duration": 138,
       "watched": false,
-      "type": "Film"
+      "type": "Film",
+      "plateform": "Prime Video"
     },
     {
       "id": "f3",
@@ -66,7 +67,8 @@
       "rating": 9.0,
       "duration": 142,
       "watched": true,
-      "type": "Film"
+      "type": "Film",
+      "plateform": "Disney+"
     },
     {
       "id": "f4",
@@ -76,7 +78,8 @@
       "rating": 7.1,
       "duration": 119,
       "watched": false,
-      "type": "Film"
+      "type": "Film",
+      "plateform": "Netflix"
     },
     {
       "id": "f5",
@@ -86,7 +89,8 @@
       "rating": 8.8,
       "duration": 95,
       "watched": true,
-      "type": "Film"
+      "type": "Film",
+      "plateform": "Hulu"
     },
     {
       "id": "s1",
@@ -114,7 +118,8 @@
           ]
         }
       ],
-      "type": "Serie"
+      "type": "Serie",
+      "plateform": "Netflix"
     },
     {
       "id": "s2",
@@ -141,7 +146,8 @@
           ]
         }
       ],
-      "type": "Serie"
+      "type": "Serie",
+      "plateform": "Prime Video"
     },
     {
       "id": "s3",
@@ -161,7 +167,8 @@
           ]
         }
       ],
-      "type": "Serie"
+      "type": "Serie",
+      "plateform": "Disney+"
     },
     {
       "id": "s4",
@@ -195,7 +202,8 @@
           ]
         }
       ],
-      "type": "Serie"
+      "type": "Serie",
+      "plateform": "Hulu"
     }
   ]
 }

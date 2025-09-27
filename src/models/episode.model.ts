@@ -1,4 +1,5 @@
-class Episode {
+
+export class Episode {
     public id: string
     public title: string
     public duration: number

@@ -1,4 +1,6 @@
- class Season  {
+import { Episode } from './episode.model'; 
+ 
+ export class Season  {
     public seasonNumber: number
     public releaseDate: Date
     public episodes: Episode[]

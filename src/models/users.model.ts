@@ -1,4 +1,5 @@
-class User {
+import { Media } from './media.model';
+export class User {
     public id: string
     public email: string    
     public password: string
