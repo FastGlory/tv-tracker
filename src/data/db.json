@@ -98,7 +98,7 @@
       "genre": "Science-Fiction",
       "year": 2020,
       "rating": 9.1,
-      "status": "En cours",
+      "status": "en_cours",
       "seasons": [
         {
           "seasonNumber": 1,
@@ -127,7 +127,7 @@
       "genre": "Fantastique",
       "year": 2018,
       "rating": 8.7,
-      "status": "Terminée",
+      "status": "terminee",
       "seasons": [
         {
           "seasonNumber": 1,
@@ -155,7 +155,7 @@
       "genre": "Drame",
       "year": 2021,
       "rating": 7.9,
-      "status": "En cours",
+      "status": "en_cours",
       "seasons": [
         {
           "seasonNumber": 1,
@@ -176,7 +176,7 @@
       "genre": "Aventure",
       "year": 2015,
       "rating": 8.4,
-      "status": "Terminée",
+      "status": "terminee",
       "seasons": [
         {
           "seasonNumber": 1,

@@ -1,5 +1,11 @@
 import data from "../data/db.json";
+import * as fs from "fs";
 
+const db = "./src/data/db.json";
+
+function  writeToFileDB() {
+  fs.writeFileSync(db, JSON.stringify(data, null, 2), "utf-8");
+}
 export class MediaService {
   public static async getAllMedia() {
     return data.medias;
@@ -16,6 +22,8 @@ export class MediaService {
 
   // Ca Protège uniquement des erreurs très très basique, si l'utilisateur arrive a casser ca, il se peut que le post accepte et envoie une valeur null qui peut casser/vider la db. 
   // Je vais intégrer zod plus tard pour faire une validation plus poussée
+  
+ // Possiblemment enlevé toute les vérifications ici vu que 
   public static async postMedia(media: any) {
     const typeList = ["Film", "Serie"];
     if (!media.type || !typeList.includes(media.type)) {
@@ -37,6 +45,7 @@ export class MediaService {
     }
 
     data.medias.push(media);
+    writeToFileDB();
 
     return media;
   }
@@ -47,14 +56,19 @@ export class MediaService {
       throw new Error("Média non trouvé");
     }
     data.medias.splice(index, 1);
+    writeToFileDB();
     return true;
   }
   
 
   // Faire une fonction update. demain...
 
-  public static async updateMedia(id: string, updatedMedia: any) {}
+  //public static async updateMedia(id: string, updatedMedia: any) {}
 
 }
 
 // https://stackoverflow.com/questions/35546421/how-to-get-a-variable-type-in-typescript pour le typeof
+
+
+
+
