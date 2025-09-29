@@ -95,6 +95,18 @@ export class MediaController {
     }
   }
 }
+  public static async deleteMedia(req: Request, res: Response) : Promise<void> {
+    try {
+      const id = req.params.id;
+      await MediaService.deleteMedia(id);
+      res.status(200).json({ message: "Média supprimé" });
+    } catch (error) {
+      res.status(500).json({ error: "Erreur serveur" });
+    }
+  }
+  
+  //public static async updateMedia(req: Request, res: Response) : Promise<void> { }
+
 }
 
 // Source pour zod : https://blog.logrocket.com/schema-validation-typescript-zod/
