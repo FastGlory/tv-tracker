@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "a8a4383f-bea7-43fc-9619-c4ce6f8499ea",
+		"name": "Tv-tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33928412"
+	},
+	"item": [
+		{
+			"name": "Tous les médias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/media",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"media"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Média par ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/media/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"media",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajouter un film",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Film\",\n  \"id\": \"f10\",\n  \"title\": \"Nouveau Film\",\n  \"genre\": \"Action\",\n  \"plateform\": \"Netflix\",\n  \"year\": 2023,\n  \"rating\": 7.5,\n  \"duration\": \"120\",\n  \"watched\": false\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/media",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"media"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajouter une série",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Serie\",\n  \"id\": \"s10\",\n  \"title\": \"Nouvelle S\\u00e9rie\",\n  \"genre\": \"Drame\",\n  \"plateform\": \"Disney+\",\n  \"year\": 2022,\n  \"rating\": 8.0,\n  \"status\": \"en_cours\",\n  \"seasons\": []\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/media",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"media"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifier un média",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"Film\",\n  \"id\": \"f1\",\n  \"title\": \"Film Modifi\\u00e9\",\n  \"genre\": \"Thriller\",\n  \"plateform\": \"Netflix\",\n  \"year\": 2021,\n  \"rating\": 8.5,\n  \"duration\": \"130\",\n  \"watched\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/media/f1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"media",
+						"f1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer un média",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/media/f1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"media",
+						"f1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Épisodes d'une série",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/series/:id/episodes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"series",
+						":id",
+						"episodes"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Favoris utilisateur",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/:id/favorites",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						":id",
+						"favorites"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Médias filtrés",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/mediaFilter?type=serie&genre=drame&year=2020",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"mediaFilter"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "serie"
+						},
+						{
+							"key": "genre",
+							"value": "drame"
+						},
+						{
+							"key": "year",
+							"value": "2020"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajouter une saison",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"seasonNumber\": 3,\n  \"releaseDate\": \"2023-10-01\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/series/s1/seasons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"series",
+						"s1",
+						"seasons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajouter un épisode",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"e99\",\n  \"title\": \"\\u00c9pisode sp\\u00e9cial\",\n  \"duration\": 50,\n  \"episodeNumber\": 5,\n  \"watched\": false,\n  \"seasonNumber\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/series/s1/episodes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"series",
+						"s1",
+						"episodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Marquer épisode comme vu",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/series/s1/seasons/1/episodes/e1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"series",
+						"s1",
+						"seasons",
+						"1",
+						"episodes",
+						"e1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dernier log",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/log",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout film invalide (titre)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout film invalide (regex invalide)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout films (erreur date)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
