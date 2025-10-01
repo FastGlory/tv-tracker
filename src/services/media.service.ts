@@ -62,7 +62,6 @@ export class MediaService {
   
 
 
-  
 public static async updateMedia(id: string, mediaChanging: any) {
   const index = data.medias.findIndex((media) => media.id === id);
   if (index === -1) {
