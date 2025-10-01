@@ -5,21 +5,30 @@
       "email": "marie.dupont@example.com",
       "password": "hashed_password123",
       "role": "user",
-      "favorites": ["f1", "s1"]
+      "favorites": [
+        "f1",
+        "s1"
+      ]
     },
     {
       "id": "u2",
       "email": "alexandre.ramos@example.com",
       "password": "secure_pass_456",
       "role": "admin",
-      "favorites": ["s2"]
+      "favorites": [
+        "s2"
+      ]
     },
     {
       "id": "u3",
       "email": "sophie.laroche@example.com",
       "password": "pw_789",
       "role": "user",
-      "favorites": ["f3", "f5", "s3"]
+      "favorites": [
+        "f3",
+        "f5",
+        "s3"
+      ]
     },
     {
       "id": "u4",
@@ -33,38 +42,31 @@
       "email": "amelie.gagnon@example.com",
       "password": "pw_753",
       "role": "user",
-      "favorites": ["f4", "s1", "s4"]
+      "favorites": [
+        "f4",
+        "s1",
+        "s4"
+      ]
     }
   ],
   "medias": [
     {
+      "type": "Film",
       "id": "f1",
-      "title": "Les Ombres de Montréal",
+      "title": "Film Modifiee",
       "genre": "Thriller",
+      "plateform": "Netflix",
       "year": 2021,
-      "rating": 8.2,
-      "duration": 125,
-      "watched": true,
-      "type": "Film",
-      "plateform": "Netflix"
-    },
-    {
-      "id": "f2",
-      "title": "La Dernière Étincelle",
-      "genre": "Drame",
-      "year": 2019,
-      "rating": 7.6,
-      "duration": 138,
-      "watched": false,
-      "type": "Film",
-      "plateform": "Prime Video"
+      "rating": 8.5,
+      "duration": 130,
+      "watched": true
     },
     {
       "id": "f3",
       "title": "Au-delà des Étoiles",
       "genre": "Science-Fiction",
       "year": 2022,
-      "rating": 9.0,
+      "rating": 9,
       "duration": 142,
       "watched": true,
       "type": "Film",
@@ -104,18 +106,60 @@
           "seasonNumber": 1,
           "releaseDate": "2020-09-15",
           "episodes": [
-            { "id": "e1", "title": "Nouvel Ordre", "duration": 52, "episodeNumber": 1, "watched": true },
-            { "id": "e2", "title": "Les Voix du Réseau", "duration": 49, "episodeNumber": 2, "watched": false },
-            { "id": "e3", "title": "Éveil Numérique", "duration": 55, "episodeNumber": 3, "watched": false }
+            {
+              "id": "e1",
+              "title": "Nouvel Ordre",
+              "duration": 52,
+              "episodeNumber": 1,
+              "watched": true
+            },
+            {
+              "id": "e2",
+              "title": "Les Voix du Réseau",
+              "duration": 49,
+              "episodeNumber": 2,
+              "watched": false
+            },
+            {
+              "id": "e3",
+              "title": "Éveil Numérique",
+              "duration": 55,
+              "episodeNumber": 3,
+              "watched": false
+            }
           ]
         },
         {
           "seasonNumber": 2,
           "releaseDate": "2022-01-12",
           "episodes": [
-            { "id": "e4", "title": "Convergence", "duration": 58, "episodeNumber": 1, "watched": false },
-            { "id": "e5", "title": "Réseaux Obscurs", "duration": 60, "episodeNumber": 2, "watched": true }
+            {
+              "id": "e4",
+              "title": "Convergence",
+              "duration": 58,
+              "episodeNumber": 1,
+              "watched": false
+            },
+            {
+              "id": "e5",
+              "title": "Réseaux Obscurs",
+              "duration": 60,
+              "episodeNumber": 2,
+              "watched": true
+            },
+            {
+              "id": "e99",
+              "title": "Épisode spécial",
+              "duration": 50,
+              "episodeNumber": 5,
+              "watched": false
+            }
           ]
+        },
+        {
+          "seasonNumber": 3,
+          "releaseDate": "2023-10-01T00:00:00.000Z",
+          "episodes": []
         }
       ],
       "type": "Serie",
@@ -133,16 +177,40 @@
           "seasonNumber": 1,
           "releaseDate": "2018-03-20",
           "episodes": [
-            { "id": "e10", "title": "Le Début des Chroniques", "duration": 45, "episodeNumber": 1, "watched": true },
-            { "id": "e11", "title": "Portes Oubliées", "duration": 47, "episodeNumber": 2, "watched": true }
+            {
+              "id": "e10",
+              "title": "Le Début des Chroniques",
+              "duration": 45,
+              "episodeNumber": 1,
+              "watched": true
+            },
+            {
+              "id": "e11",
+              "title": "Portes Oubliées",
+              "duration": 47,
+              "episodeNumber": 2,
+              "watched": true
+            }
           ]
         },
         {
           "seasonNumber": 2,
           "releaseDate": "2019-05-10",
           "episodes": [
-            { "id": "e20", "title": "L’Éclipse", "duration": 50, "episodeNumber": 1, "watched": false },
-            { "id": "e21", "title": "Retour des Gardiens", "duration": 52, "episodeNumber": 2, "watched": false }
+            {
+              "id": "e20",
+              "title": "L’Éclipse",
+              "duration": 50,
+              "episodeNumber": 1,
+              "watched": false
+            },
+            {
+              "id": "e21",
+              "title": "Retour des Gardiens",
+              "duration": 52,
+              "episodeNumber": 2,
+              "watched": false
+            }
           ]
         }
       ],
@@ -161,9 +229,27 @@
           "seasonNumber": 1,
           "releaseDate": "2021-06-10",
           "episodes": [
-            { "id": "e30", "title": "Les Rues Parlent", "duration": 42, "episodeNumber": 1, "watched": true },
-            { "id": "e31", "title": "Sous les Néons", "duration": 44, "episodeNumber": 2, "watched": false },
-            { "id": "e32", "title": "Éclats de Nuit", "duration": 43, "episodeNumber": 3, "watched": false }
+            {
+              "id": "e30",
+              "title": "Les Rues Parlent",
+              "duration": 42,
+              "episodeNumber": 1,
+              "watched": true
+            },
+            {
+              "id": "e31",
+              "title": "Sous les Néons",
+              "duration": 44,
+              "episodeNumber": 2,
+              "watched": false
+            },
+            {
+              "id": "e32",
+              "title": "Éclats de Nuit",
+              "duration": 43,
+              "episodeNumber": 3,
+              "watched": false
+            }
           ]
         }
       ],
@@ -182,28 +268,80 @@
           "seasonNumber": 1,
           "releaseDate": "2015-02-05",
           "episodes": [
-            { "id": "e40", "title": "Départ Inattendu", "duration": 50, "episodeNumber": 1, "watched": true },
-            { "id": "e41", "title": "Rivière des Brumes", "duration": 48, "episodeNumber": 2, "watched": true }
+            {
+              "id": "e40",
+              "title": "Départ Inattendu",
+              "duration": 50,
+              "episodeNumber": 1,
+              "watched": true
+            },
+            {
+              "id": "e41",
+              "title": "Rivière des Brumes",
+              "duration": 48,
+              "episodeNumber": 2,
+              "watched": true
+            }
           ]
         },
         {
           "seasonNumber": 2,
           "releaseDate": "2016-04-18",
           "episodes": [
-            { "id": "e42", "title": "Tempêtes et Mirages", "duration": 51, "episodeNumber": 1, "watched": false },
-            { "id": "e43", "title": "Retour au Village", "duration": 47, "episodeNumber": 2, "watched": false }
+            {
+              "id": "e42",
+              "title": "Tempêtes et Mirages",
+              "duration": 51,
+              "episodeNumber": 1,
+              "watched": false
+            },
+            {
+              "id": "e43",
+              "title": "Retour au Village",
+              "duration": 47,
+              "episodeNumber": 2,
+              "watched": false
+            }
           ]
         },
         {
           "seasonNumber": 3,
           "releaseDate": "2017-09-09",
           "episodes": [
-            { "id": "e44", "title": "Au-delà des Montagnes", "duration": 53, "episodeNumber": 1, "watched": false }
+            {
+              "id": "e44",
+              "title": "Au-delà des Montagnes",
+              "duration": 53,
+              "episodeNumber": 1,
+              "watched": false
+            }
           ]
         }
       ],
       "type": "Serie",
       "plateform": "Hulu"
+    },
+    {
+      "type": "Film",
+      "id": "f10",
+      "title": "Nouveau Film",
+      "genre": "Action",
+      "plateform": "Netflix",
+      "year": 2023,
+      "rating": 7.5,
+      "duration": 120,
+      "watched": false
+    },
+    {
+      "type": "Serie",
+      "id": "s10",
+      "title": "Nouvelle Serie",
+      "genre": "Drame",
+      "plateform": "Disney+",
+      "year": 2022,
+      "rating": 8,
+      "status": "en_cours",
+      "seasons": []
     }
   ]
 }

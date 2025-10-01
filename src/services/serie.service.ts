@@ -1,7 +1,6 @@
 import { Serie } from "../models/serie.model";
 import { Season } from "../models/season.model";
 import { Episode } from "../models/episode.model";
-import { Media } from "../models/media.model";
 import data from "../data/db.json"
 
 import * as fs from "fs";
