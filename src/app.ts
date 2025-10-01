@@ -2,6 +2,7 @@ import express from 'express';
 import mediaRoutes from './routes/media.route';
 import userRoutes from './routes/user.route';
 import serieRoutes from './routes/serie.route';
+import logRoutes from './routes/log.route'
 import { middlewareError,middlewareLogger } from './middleware/winston.middleware';
 
 
@@ -13,6 +14,7 @@ app.use(middlewareLogger);
 app.use('/api', mediaRoutes);
 app.use('/api', userRoutes);
 app.use('/api', serieRoutes);
+app.use('/api',logRoutes);
 
 app.use(middlewareError);
 

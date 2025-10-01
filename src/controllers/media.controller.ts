@@ -30,17 +30,18 @@ export class MediaController {
   // La majorité du code vient du cours et celui de la source en bas
   // J'ai juste adapté pour que ca colle avec mon service et mon schéma zod
 
-  public static async postMedia(req: Request, res: Response): Promise<Response> {
+  public static async postMedia(req: Request, res: Response): Promise<void> {
     try {
       const media = mediaSchema.parse(req.body);
-      const result = await MediaService.postMedia(media);
-      return res.status(201).json(result);
+      const ajoutMedia = await MediaService.postMedia(media);
+      res.status(200).json(ajoutMedia);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ Message: error.issues.map(issue => issue.message) });
+         res.status(400).json({ Message: error.issues.map(issue => issue.message) });
       }
+      // erreur autre que zod
       console.error(error);
-      return res.status(500).json({ error: "Erreur serveur" });
+      res.status(500).json({ error: "Erreur serveur" });
     }
   }
   public static async deleteMedia(req: Request, res: Response) : Promise<void> {
@@ -49,11 +50,26 @@ export class MediaController {
       await MediaService.deleteMedia(id);
       res.status(200).json({ message: "Média supprimé" });
     } catch (error) {
-      res.status(500).json({ error: "Erreur serveur" });
+      res.status(404).json({ error: "Média non trouvé" });
     }
   }
   
-  //public static async updateMedia(req: Request, res: Response) : Promise<void> { }
+  public static async updateMedia(req: Request, res: Response) : Promise<void> { 
+      try {
+        const id = req.params.id;
+        const verificationMedia = mediaSchema.parse(req.body);
+        const modificationMedia = await MediaService.updateMedia(id,verificationMedia)
+        res.status(200).json(modificationMedia)
+      } catch (error) {
+      if (error instanceof z.ZodError) {
+         res.status(400).json({ Message: error.issues.map(issue => issue.message) });
+      }
+      // erreur autre que zod
+      console.error(error);
+      res.status(500).json({ error: "Erreur serveur" });
+    }
+
+  }
 
 }
 

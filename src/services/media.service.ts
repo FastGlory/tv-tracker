@@ -23,7 +23,7 @@ export class MediaService {
   // Ca Protège uniquement des erreurs très très basique, si l'utilisateur arrive a casser ca, il se peut que le post accepte et envoie une valeur null qui peut casser/vider la db. 
   // Je vais intégrer zod plus tard pour faire une validation plus poussée
   
- // Possiblemment enlevé toute les vérifications ici vu que 
+ // Possiblemment enlevé toute les vérifications ici vu que on le fait déjà dans le zod.middleware.ts
   public static async postMedia(media: any) {
     const typeList = ["Film", "Serie"];
     if (!media.type || !typeList.includes(media.type)) {
@@ -61,9 +61,20 @@ export class MediaService {
   }
   
 
-  // Faire une fonction update. demain...
 
-  //public static async updateMedia(id: string, updatedMedia: any) {}
+  
+public static async updateMedia(id: string, mediaChanging: any) {
+  const index = data.medias.findIndex((media) => media.id === id);
+  if (index === -1) {
+    throw new Error("Média non trouvé");
+  }
+
+  data.medias[index] = mediaChanging;
+  writeToFileDB();
+  return data.medias[index];
+}
+
+
 
 }
 
