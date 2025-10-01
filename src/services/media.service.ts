@@ -73,6 +73,14 @@ public static async updateMedia(id: string, mediaChanging: any) {
   return data.medias[index];
 }
 
+  public static async getFilterMedia(type?: string, genre?: string, year?: number) {
+        let mediasFiltered = data.medias;
+        if (type) {mediasFiltered = mediasFiltered.filter(media => media.type.toLowerCase() === type.toLowerCase());}
+        if (genre) {mediasFiltered = mediasFiltered.filter(media => media.genre.toLowerCase() === genre.toLowerCase());}
+        if (year) {mediasFiltered = mediasFiltered.filter(media => media.year === year);}
+        return mediasFiltered;
+    }
+
 
 
 }

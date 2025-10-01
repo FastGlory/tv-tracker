@@ -71,6 +71,22 @@ export class MediaController {
 
   }
 
+ public static async filterMedia(req: Request, res: Response): Promise<void> { 
+    try {
+        const type = req.query.type as string | undefined;
+        const genre = req.query.genre as string | undefined;
+
+        // J'ai résolue le problème avec l'indication erreur de vscode/ le 10 vient de https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+        const year = req.query.year ? parseInt(req.query.year as string, 10) : undefined;
+
+        const medias = await MediaService.getFilterMedia(type, genre, year);
+        res.status(200).json(medias);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erreur serveur" });
+    }
+    }
+
 }
 
 // Source pour zod : https://blog.logrocket.com/schema-validation-typescript-zod/ et https://zod.dev/error-customization
