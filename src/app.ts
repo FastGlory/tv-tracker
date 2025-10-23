@@ -1,9 +1,9 @@
 import express from 'express';
-import mediaRoutes from './routes/media.route';
-import userRoutes from './routes/user.route';
-import serieRoutes from './routes/serie.route';
-import logRoutes from './routes/log.route'
-import { middlewareError,middlewareLogger } from './middleware/winston.middleware';
+import mediaRoutes from '../src/v1/routes/media.route';
+import userRoutes from '../src/v1//routes/user.route';
+import serieRoutes from '../src/v1//routes/serie.route';
+import logRoutes from '../src/v1//routes/log.route'
+import { middlewareError,middlewareLogger } from '../src/v1//middleware/winston.middleware';
 
 
 const app = express();
