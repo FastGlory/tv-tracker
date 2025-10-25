@@ -4,10 +4,13 @@ import userRoutes from '../src/v1//routes/user.route';
 import serieRoutes from '../src/v1//routes/serie.route';
 import logRoutes from '../src/v1//routes/log.route'
 import { middlewareError,middlewareLogger } from '../src/v1//middleware/winston.middleware';
+import dotenv from 'dotenv';
+import { connectDB } from './config/database';
 
+dotenv.config();
+connectDB(); 
 
 const app = express();
-
 app.use(express.json());
 app.use(middlewareLogger);
 
