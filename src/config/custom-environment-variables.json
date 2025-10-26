@@ -1,4 +1,4 @@
 {
- "db": { "uri": "MONGO_URI" },
- "security": { "jwt": { "secret": "JWT_SECRET" } }
+ "db": { "uri": "mongodb+srv://jubaredjradj:brT1mwNT1H56BFYy@cluster-tv-tracker.ayih5at.mongodb.net/tv-tracker-db?retryWrites=true&w=majority" },
+ "security": { "jwt": { "secret": "your_jwt_secret_key" } }
 }
