@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "671cf1a12a8cbb42cde4b001",
+    "title": "Chronicles of Ashen",
+    "genres": ["Fantasy", "Adventure"],
+    "status": "ended"
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4b002",
+    "title": "Neon Underground",
+    "genres": ["Sci-Fi", "Thriller"],
+    "status": "ongoing"
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4b003",
+    "title": "Echo Division",
+    "genres": ["Drama", "Mystery"],
+    "status": "ongoing"
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4b004",
+    "title": "Empire of Dust",
+    "genres": ["Fantasy", "Action"],
+    "status": "ended"
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4b005",
+    "title": "Binary Hearts",
+    "genres": ["Romance", "Sci-Fi"],
+    "status": "ongoing"
+  }
+]

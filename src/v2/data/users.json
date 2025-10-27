@@ -1,0 +1,137 @@
+[
+  {
+    "_id": "671cf1a12a8cbb42cde4a001",
+    "email": "admin@media.com",
+    "nom": "Admin",
+    "username": "admin",
+    "password": "Admin123!",
+    "role": "admin",
+    "favorites": ["671cf1a12a8cbb42cde4a101", "671cf1a12a8cbb42cde4a102"]
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a002",
+    "email": "john.doe@test.com",
+    "nom": "John Doe",
+    "username": "johndoe",
+    "password": "User123!",
+    "role": "user",
+    "favorites": ["671cf1a12a8cbb42cde4a103", "671cf1a12a8cbb42cde4a104"]
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a003",
+    "email": "jane.smith@test.com",
+    "nom": "Jane Smith",
+    "username": "janesmith",
+    "password": "User123!",
+    "role": "user",
+    "favorites": ["671cf1a12a8cbb42cde4a105"]
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a004",
+    "email": "liam.jones@test.com",
+    "nom": "Liam Jones",
+    "username": "liamj",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a005",
+    "email": "emma.watson@test.com",
+    "nom": "Emma Watson",
+    "username": "emmaw",
+    "password": "User123!",
+    "role": "user",
+    "favorites": ["671cf1a12a8cbb42cde4a106"]
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a006",
+    "email": "olivia.anderson@test.com",
+    "nom": "Olivia Anderson",
+    "username": "oliviaa",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a007",
+    "email": "noah.wilson@test.com",
+    "nom": "Noah Wilson",
+    "username": "noahw",
+    "password": "User123!",
+    "role": "user",
+    "favorites": ["671cf1a12a8cbb42cde4a107", "671cf1a12a8cbb42cde4a108"]
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a008",
+    "email": "mia.moore@test.com",
+    "nom": "Mia Moore",
+    "username": "miam",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a009",
+    "email": "alex.turner@test.com",
+    "nom": "Alex Turner",
+    "username": "alext",
+    "password": "User123!",
+    "role": "user",
+    "favorites": ["671cf1a12a8cbb42cde4a109"]
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a010",
+    "email": "lucas.miller@test.com",
+    "nom": "Lucas Miller",
+    "username": "lucasm",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a011",
+    "email": "ava.jackson@test.com",
+    "nom": "Ava Jackson",
+    "username": "avaj",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a012",
+    "email": "william.thomas@test.com",
+    "nom": "William Thomas",
+    "username": "williamt",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a013",
+    "email": "sofia.brown@test.com",
+    "nom": "Sofia Brown",
+    "username": "sofiab",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a014",
+    "email": "amelia.davis@test.com",
+    "nom": "Amelia Davis",
+    "username": "ameliad",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a015",
+    "email": "ethan.taylor@test.com",
+    "nom": "Ethan Taylor",
+    "username": "ethant",
+    "password": "User123!",
+    "role": "user",
+    "favorites": []
+  }
+]

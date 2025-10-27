@@ -1,0 +1,8 @@
+[
+  { "_id": "671cf1a12a8cbb42cde4c001", "seriesId": "671cf1a12a8cbb42cde4b001", "seasonNo": 1, "episodes": 10 },
+  { "_id": "671cf1a12a8cbb42cde4c002", "seriesId": "671cf1a12a8cbb42cde4b001", "seasonNo": 2, "episodes": 8 },
+  { "_id": "671cf1a12a8cbb42cde4c003", "seriesId": "671cf1a12a8cbb42cde4b002", "seasonNo": 1, "episodes": 12 },
+  { "_id": "671cf1a12a8cbb42cde4c004", "seriesId": "671cf1a12a8cbb42cde4b003", "seasonNo": 1, "episodes": 8 },
+  { "_id": "671cf1a12a8cbb42cde4c005", "seriesId": "671cf1a12a8cbb42cde4b004", "seasonNo": 1, "episodes": 10 },
+  { "_id": "671cf1a12a8cbb42cde4c006", "seriesId": "671cf1a12a8cbb42cde4b005", "seasonNo": 1, "episodes": 6 }
+]

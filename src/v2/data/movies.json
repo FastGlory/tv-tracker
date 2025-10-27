@@ -1,0 +1,162 @@
+[
+  {
+    "_id": "671cf1a12a8cbb42cde4a101",
+    "title": "Red Horizon",
+    "genres": ["Action", "Sci-Fi"],
+    "synopsis": "A pilot discovers a military conspiracy in a war-torn future world.",
+    "releaseDate": "2022-06-10T00:00:00.000Z",
+    "durationMin": 123
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a102",
+    "title": "Neon Skies",
+    "genres": ["Drama", "Thriller"],
+    "synopsis": "A detective in a cyberpunk city faces moral dilemmas amid neon chaos.",
+    "releaseDate": "2021-04-20T00:00:00.000Z",
+    "durationMin": 110
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a103",
+    "title": "Frozen Empire",
+    "genres": ["Adventure", "Fantasy"],
+    "synopsis": "An exiled prince returns to save his frozen kingdom from collapse.",
+    "releaseDate": "2020-12-01T00:00:00.000Z",
+    "durationMin": 130
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a104",
+    "title": "Glass City",
+    "genres": ["Sci-Fi", "Crime"],
+    "synopsis": "A hacker must survive in a dystopian megacity of glass towers.",
+    "releaseDate": "2019-09-18T00:00:00.000Z",
+    "durationMin": 115
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a105",
+    "title": "Second Sun",
+    "genres": ["Action", "Thriller"],
+    "synopsis": "A rogue agent hunts for redemption under a dying sun.",
+    "releaseDate": "2023-07-01T00:00:00.000Z",
+    "durationMin": 125
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a106",
+    "title": "The Last Harbor",
+    "genres": ["Drama"],
+    "synopsis": "A fisherman’s quiet life unravels after discovering a secret cargo.",
+    "releaseDate": "2018-02-14T00:00:00.000Z",
+    "durationMin": 118
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a107",
+    "title": "Ivory Spire",
+    "genres": ["Fantasy", "Adventure"],
+    "synopsis": "A young knight climbs the legendary Ivory Spire to save his kingdom.",
+    "releaseDate": "2016-05-23T00:00:00.000Z",
+    "durationMin": 140
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a108",
+    "title": "Shadow Protocol",
+    "genres": ["Action"],
+    "synopsis": "An intelligence operative uncovers a hidden network of spies.",
+    "releaseDate": "2017-11-03T00:00:00.000Z",
+    "durationMin": 124
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a109",
+    "title": "Nova Requiem",
+    "genres": ["Sci-Fi", "Mystery"],
+    "synopsis": "Astronauts awaken from cryosleep to find their ship abandoned.",
+    "releaseDate": "2024-03-15T00:00:00.000Z",
+    "durationMin": 121
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a110",
+    "title": "Crimson Ashes",
+    "genres": ["Drama", "War"],
+    "synopsis": "In the ruins of a fallen empire, two soldiers search for redemption.",
+    "releaseDate": "2015-01-10T00:00:00.000Z",
+    "durationMin": 128
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a111",
+    "title": "Phantom Signal",
+    "genres": ["Horror", "Sci-Fi"],
+    "synopsis": "A lost deep-space crew picks up a signal from an impossible source.",
+    "releaseDate": "2022-10-31T00:00:00.000Z",
+    "durationMin": 108
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a112",
+    "title": "Beneath the Frost",
+    "genres": ["Thriller"],
+    "synopsis": "An arctic expedition uncovers something buried for centuries.",
+    "releaseDate": "2019-02-25T00:00:00.000Z",
+    "durationMin": 119
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a113",
+    "title": "Lunar Divide",
+    "genres": ["Sci-Fi"],
+    "synopsis": "Colonists on the moon face rebellion and resource crisis.",
+    "releaseDate": "2021-11-09T00:00:00.000Z",
+    "durationMin": 122
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a114",
+    "title": "Iron Bloom",
+    "genres": ["Fantasy", "Romance"],
+    "synopsis": "A blacksmith and a mage fight for love and freedom.",
+    "releaseDate": "2017-08-15T00:00:00.000Z",
+    "durationMin": 135
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a115",
+    "title": "Echo Drift",
+    "genres": ["Mystery", "Drama"],
+    "synopsis": "A journalist relives the same day investigating a town’s disappearance.",
+    "releaseDate": "2014-05-22T00:00:00.000Z",
+    "durationMin": 111
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a116",
+    "title": "Solar Vengeance",
+    "genres": ["Action", "Sci-Fi"],
+    "synopsis": "A bounty hunter tracks a rogue AI across solar systems.",
+    "releaseDate": "2023-09-01T00:00:00.000Z",
+    "durationMin": 119
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a117",
+    "title": "Violet Edge",
+    "genres": ["Drama"],
+    "synopsis": "A musician’s career and relationships collide under fame’s weight.",
+    "releaseDate": "2013-03-19T00:00:00.000Z",
+    "durationMin": 128
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a118",
+    "title": "Burning Atlas",
+    "genres": ["Action"],
+    "synopsis": "A mercenary must stop a weapon capable of rewriting reality.",
+    "releaseDate": "2020-06-12T00:00:00.000Z",
+    "durationMin": 122
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a119",
+    "title": "Eclipse Protocol",
+    "genres": ["Sci-Fi", "Thriller"],
+    "synopsis": "A scientist discovers an experiment that can stop time itself.",
+    "releaseDate": "2023-11-04T00:00:00.000Z",
+    "durationMin": 132
+  },
+  {
+    "_id": "671cf1a12a8cbb42cde4a120",
+    "title": "Starlit Veil",
+    "genres": ["Fantasy", "Adventure"],
+    "synopsis": "A princess escapes through worlds hidden beneath starlight.",
+    "releaseDate": "2018-08-07T00:00:00.000Z",
+    "durationMin": 129
+  }
+]

@@ -1,0 +1,16 @@
+[
+  { "_id": "671cf1a12a8cbb42cde4e001", "userId": "671cf1a12a8cbb42cde4a002", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a101", "score": 8, "review": "Great atmosphere and visuals." },
+  { "_id": "671cf1a12a8cbb42cde4e002", "userId": "671cf1a12a8cbb42cde4a003", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a102", "score": 7, "review": "Solid thriller but predictable ending." },
+  { "_id": "671cf1a12a8cbb42cde4e003", "userId": "671cf1a12a8cbb42cde4a004", "target": "episode", "targetId": "671cf1a12a8cbb42cde4d001", "score": 9, "review": "Epic start to the season!" },
+  { "_id": "671cf1a12a8cbb42cde4e004", "userId": "671cf1a12a8cbb42cde4a005", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a106", "score": 10, "review": "Emotionally powerful and perfectly acted." },
+  { "_id": "671cf1a12a8cbb42cde4e005", "userId": "671cf1a12a8cbb42cde4a006", "target": "episode", "targetId": "671cf1a12a8cbb42cde4d002", "score": 6, "review": "Good visuals but slow pacing." },
+  { "_id": "671cf1a12a8cbb42cde4e006", "userId": "671cf1a12a8cbb42cde4a007", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a109", "score": 8, "review": "Tense mystery with a satisfying payoff." },
+  { "_id": "671cf1a12a8cbb42cde4e007", "userId": "671cf1a12a8cbb42cde4a008", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a104", "score": 5, "review": "Interesting world but weak dialogue." },
+  { "_id": "671cf1a12a8cbb42cde4e008", "userId": "671cf1a12a8cbb42cde4a009", "target": "episode", "targetId": "671cf1a12a8cbb42cde4d003", "score": 8, "review": "Loved the cyberpunk aesthetic." },
+  { "_id": "671cf1a12a8cbb42cde4e009", "userId": "671cf1a12a8cbb42cde4a010", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a108", "score": 7, "review": "Solid action sequences." },
+  { "_id": "671cf1a12a8cbb42cde4e010", "userId": "671cf1a12a8cbb42cde4a011", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a105", "score": 9, "review": "Loved every minute of it!" },
+  { "_id": "671cf1a12a8cbb42cde4e011", "userId": "671cf1a12a8cbb42cde4a012", "target": "episode", "targetId": "671cf1a12a8cbb42cde4d006", "score": 10, "review": "Best episode of the series so far!" },
+  { "_id": "671cf1a12a8cbb42cde4e012", "userId": "671cf1a12a8cbb42cde4a013", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a111", "score": 7, "review": "Creepy and atmospheric." },
+  { "_id": "671cf1a12a8cbb42cde4e013", "userId": "671cf1a12a8cbb42cde4a014", "target": "episode", "targetId": "671cf1a12a8cbb42cde4d007", "score": 9, "review": "Powerful storytelling." },
+  { "_id": "671cf1a12a8cbb42cde4e014", "userId": "671cf1a12a8cbb42cde4a015", "target": "movie", "targetId": "671cf1a12a8cbb42cde4a120", "score": 8, "review": "Magical and moving finale." }
+]

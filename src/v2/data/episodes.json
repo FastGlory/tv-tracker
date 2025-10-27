@@ -1,0 +1,12 @@
+[
+  { "_id": "671cf1a12a8cbb42cde4d001", "seriesId": "671cf1a12a8cbb42cde4b001", "seasonId": "671cf1a12a8cbb42cde4c001", "epNo": 1, "title": "Rise of Shadows", "durationMin": 48 },
+  { "_id": "671cf1a12a8cbb42cde4d002", "seriesId": "671cf1a12a8cbb42cde4b001", "seasonId": "671cf1a12a8cbb42cde4c001", "epNo": 2, "title": "The Blood Crown", "durationMin": 52 },
+  { "_id": "671cf1a12a8cbb42cde4d003", "seriesId": "671cf1a12a8cbb42cde4b002", "seasonId": "671cf1a12a8cbb42cde4c003", "epNo": 1, "title": "Neon Underground", "durationMin": 45 },
+  { "_id": "671cf1a12a8cbb42cde4d004", "seriesId": "671cf1a12a8cbb42cde4b002", "seasonId": "671cf1a12a8cbb42cde4c003", "epNo": 2, "title": "Codebreaker", "durationMin": 47 },
+  { "_id": "671cf1a12a8cbb42cde4d005", "seriesId": "671cf1a12a8cbb42cde4b003", "seasonId": "671cf1a12a8cbb42cde4c004", "epNo": 1, "title": "Whispers", "durationMin": 50 },
+  { "_id": "671cf1a12a8cbb42cde4d006", "seriesId": "671cf1a12a8cbb42cde4b003", "seasonId": "671cf1a12a8cbb42cde4c004", "epNo": 2, "title": "The Hidden Jewel", "durationMin": 49 },
+  { "_id": "671cf1a12a8cbb42cde4d007", "seriesId": "671cf1a12a8cbb42cde4b004", "seasonId": "671cf1a12a8cbb42cde4c005", "epNo": 1, "title": "Flight of Steel", "durationMin": 51 },
+  { "_id": "671cf1a12a8cbb42cde4d008", "seriesId": "671cf1a12a8cbb42cde4b004", "seasonId": "671cf1a12a8cbb42cde4c005", "epNo": 2, "title": "Betrayal in Blue", "durationMin": 53 },
+  { "_id": "671cf1a12a8cbb42cde4d009", "seriesId": "671cf1a12a8cbb42cde4b005", "seasonId": "671cf1a12a8cbb42cde4c006", "epNo": 1, "title": "Digital Hearts", "durationMin": 42 },
+  { "_id": "671cf1a12a8cbb42cde4d010", "seriesId": "671cf1a12a8cbb42cde4b005", "seasonId": "671cf1a12a8cbb42cde4c006", "epNo": 2, "title": "Neural Dreams", "durationMin": 44 }
+]
