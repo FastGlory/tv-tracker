@@ -6,8 +6,6 @@ const TOKEN_EXPIRATION = '1h';
 
 export class AuthentificationService {
 
-    
-
 
     static async registerUser(email: string, nom: string, username: string, password: string) {
 
@@ -29,7 +27,8 @@ export class AuthentificationService {
         // pas besoin de mettre role vu qu'on a une valeur par défaut dans le model
         const user = new UserModels({ email, nom, username, password: hashedPassword });
         await user.save();
-        const token = jwt.sign({ id: user._id }, SECRET_KEY, { expiresIn: TOKEN_EXPIRATION });
+        const token = jwt.sign({ id: user._id, role: user.role, username: user.username }, SECRET_KEY, { expiresIn: TOKEN_EXPIRATION });
+
         return { token };
     }
     static async loginUser(email: string, password: string) {
@@ -41,16 +40,9 @@ export class AuthentificationService {
         if (!isPasswordValid) {
             throw new Error('Mot de passe incorrect');
         }
-        const token = jwt.sign({ username: user.username }, SECRET_KEY, { expiresIn: TOKEN_EXPIRATION });
+        const token = jwt.sign({ id: user._id, role: user.role, username: user.username }, SECRET_KEY, { expiresIn: TOKEN_EXPIRATION });
         return { token };
     }
 
-    public static async verifyToken(token: string) {
-    try {
-      return jwt.verify(token, SECRET_KEY);
-    } catch {
-      throw new Error('Token invalide ou expiré');
-    }
-  }
 
 }
