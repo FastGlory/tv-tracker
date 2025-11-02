@@ -77,3 +77,4 @@
 {"level":"info","message":"POST /api/v2/auth/login","timestamp":"2025-11-02T03:42:44.247Z"}
 {"level":"info","message":"POST /api/v2/series/671cf1a12a8cbb42cde4b001/seasons","timestamp":"2025-11-02T03:42:57.184Z"}
 {"level":"info","message":"POST /api/v2/series/671cf1a12a8cbb42cde4b001/seasons","timestamp":"2025-11-02T03:45:50.762Z"}
+{"level":"info","message":"GET /","timestamp":"2025-11-02T22:26:48.588Z"}

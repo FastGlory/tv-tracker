@@ -30,7 +30,7 @@ export class SeriesController {
             );
             res.status(200).json(series);
         } catch (error: any) {
-            res.status(404).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
     }
 }

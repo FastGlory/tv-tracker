@@ -10,15 +10,21 @@ import movieRoutesV2 from './v2/routes/movie.route';
 import serieRouteV2 from './v2/routes/serie.route';
 import seasonRouteV2 from './v2/routes/season.route';
 import episodeRouteV2 from './v2/routes/episode.route';
+import ratingRouteV2 from './v2/routes/rating.route';
+import recommandationRouteV2 from './v2/routes/recommandation.route';
+import { securisationServer } from './common/securisationServer';
+import cors from 'cors';
+
 import dotenv from 'dotenv';
-import { connectDB } from './config/database';
+import { connectDB } from './common/database';
 
 dotenv.config();
 connectDB(); 
 
 const app = express();
 app.use(express.json());
-app.use(middlewareLogger);
+
+securisationServer(app);
 
 app.use('/api', mediaRoutes);
 app.use('/api', userRoutes);
@@ -31,6 +37,8 @@ app.use('/api/v2/movies', movieRoutesV2);
 app.use('/api/v2/series', serieRouteV2);
 app.use('/api/v2/series', seasonRouteV2);  
 app.use('/api/v2/series', episodeRouteV2);
+app.use('/api/v2/ratings', ratingRouteV2);
+app.use('/api/v2/reco', recommandationRouteV2);
 
 app.use(middlewareError);
 

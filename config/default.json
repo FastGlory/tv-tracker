@@ -1,0 +1,15 @@
+{
+ "app": { "basePath": "/api" },
+ "server": {
+ "http": { "enabled": true, "port": 3000 },
+ "https": { "enabled": true, "port": 3333, "redirectAllHttpToHttps": true },
+ "trustProxy": false
+ },
+ "db": { "uri": "mongodb+srv://jubaredjradj:brT1mwNT1H56BFYy@cluster-tv-tracker.ayih5at.mongodb.net/tv-tracker-db?retryWrites=true&w=majority" },
+ "security": {
+ "jwt": { "secret": "dev-secret", "expiresIn": "1h" },
+ "cors": { "origins": ["http://localhost:3000", "https://localhost:3333"] },
+ "rateLimit": { "windowMs": 900000, "max": 100 }
+ }
+
+}

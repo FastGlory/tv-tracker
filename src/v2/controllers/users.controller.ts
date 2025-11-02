@@ -10,7 +10,7 @@ export class UsersController {
       const user = await UsersService.getCurrentUser(req.user!.id);
       res.status(200).json(user);
     } catch (error: any) {
-      res.status(404).json({ message: error.message } );
+      res.status(500).json({ message: error.message } );
     }
   }
 
@@ -34,7 +34,7 @@ export class UsersController {
       const user = await UsersService.getUserById(req.params.id);
       res.status(200).json(user);
     } catch (error: any) {
-      res.status(404).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 }
