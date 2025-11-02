@@ -1,25 +1,36 @@
-import { Request, Response } from 'express';
-import { AuthentificationService } from '../services/authentification.services';
+import { Request, Response } from "express";
+import { AuthentificationService } from "../services/authentification.services";
+import { userSchema } from "../middleware/validation.middleware";
+import { z } from "zod";
 
 export class AuthentificationController {
-  static async register(req: Request, res: Response) {
+  public static async register(req: Request, res: Response): Promise<void> {
     try {
-      const { email, nom, username, password } = req.body;
-      const user = await AuthentificationService.registerUser(email, nom, username, password);
-      return res.status(201).json(user);
-    } catch (e: any) {
-      if (e.message.includes('utilisé')) return res.status(409).json({ message: e.message });
-      return res.status(400).json({ message: e.message });
-    }
+      const data = userSchema.parse(req.body);
+      const user = await AuthentificationService.registerUser(
+        data.email,
+        data.nom,
+        data.username,
+        data.password
+      );
+      res.status(201).json(user);
+    }   catch (error) {
+            if (error instanceof z.ZodError) {
+                res.status(400).json({ Message: error.issues.map(issue => issue.message) });
+            }
+            // erreur autre que zod
+            console.error(error);
+            res.status(500).json({ error: "Erreur serveur" }); 
+        }
   }
 
-  static async login(req: Request, res: Response) {
+  public static async login(req: Request, res: Response): Promise<void> {
     try {
       const { email, password } = req.body;
       const result = await AuthentificationService.loginUser(email, password);
-      return res.status(200).json(result);
-    } catch (e: any) {
-      return res.status(401).json({ message: e.message });
+      res.status(200).json(result);
+    } catch (error : any) {
+      res.status(401).json({ message: error.message });
     }
   }
 }

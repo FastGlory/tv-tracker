@@ -9,6 +9,8 @@ export interface IMovie extends Document {
 }
 
 const MovieSchema = new Schema({
+
+  // c'est un doublon un peu avec la regex dans le service mais bon au moins c'est validé des deux côtés
   title: { type: String, required: true, minlength: 1, maxlength: 200 },
   genres: [{ type: String, required: true, minlength: 1, maxlength: 30 }],
   synopsis: { type: String },

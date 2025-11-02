@@ -26,11 +26,9 @@ export class UsersService {
     if (data.favorites) {patchUser.favorites = data.favorites;}
 
     const user = await UserModel.findByIdAndUpdate(userId, patchUser, {new: true,runValidators: true,}).select("-password");
-
     if (!user) {
       throw new Error("Utilisateur introuvable pour mise à jour");
     }
-
     return user;
   }
 
