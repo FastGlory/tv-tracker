@@ -433,8 +433,8 @@
       "UserLogin": {
         "type": "object",
         "properties": {
-          "email": { "type": "string", "format": "email", "example": "john.doe@example.com" },
-          "password": { "type": "string", "example": "User123!" }
+          "email": { "type": "string", "format": "email", "example": "admin@media.com" },
+          "password": { "type": "string", "example": "Admin123!" }
         },
         "required": ["email", "password"]
       },

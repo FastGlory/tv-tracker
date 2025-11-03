@@ -1,4 +1,4 @@
-# 🎬 TV Tracker – API Médias v2 (Sécurisée)
+# 🎬 TV Tracker – API Médias v2 (Sécurisée - MongoDB)
 
 > Une **API RESTful** professionnelle développée avec **Node.js**, **Express** et **TypeScript**, connectée à **MongoDB**, et sécurisée par **JWT**, **CORS**, **rôles**, **rate-limiting** et **HTTPS**.
 > Cette version **v2** fait évoluer le projet du **TP1** vers une architecture complète, persistante et configurable par environnement.
@@ -59,7 +59,9 @@ openssl req -new -newkey rsa:2048 -nodes \
 # 5.
 openssl x509 -req -days 365 -in cert/csr.pem -signkey cert/key.pem -out cert/cert.pem
 
-# 6. Lancer le serveur
+# 6. Clear toute la db pour un test optimal
+npm run seed
+# 7. Lancer le serveur
 npm start
 ```
 
@@ -188,7 +190,6 @@ for i in {1..120}; do curl -s -o /dev/null -w "%{http_code}\n" http://localhost:
 seq 1 120 | xargs -n1 -P20 -I{} curl -s -o /dev/null -w "%{http_code}\n" -k https://localhost:3333/api/v2/movies
 ```
 
-
 ## 🧪 Collection Postman
 
 Une collection complète a été créée pour tester :
@@ -203,7 +204,6 @@ Une collection complète a été créée pour tester :
 👉 Importez la collection Postman pour tester rapidement tous les endpoints :  
 🔗 [Lien vers la collection](https://documenter.getpostman.com/view/33928412/2sB3WpRgBa)
 ---
-
 ## 📘 Documentation Swagger
 
 | Version | URL        | Description                                        |
@@ -212,6 +212,7 @@ Une collection complète a été créée pour tester :
 | v2      | `/docs/v2` | API complète avec modèles, validations et sécurité |
 
 ---
+⚠️ **Note** : L’intelligence artificielle a servi **d’appui** pour simplifier et accélérer la conception de certaines parties du projet (Postman,README, attaque DDOS).
 
 ## 👨‍💻 Auteur
 
@@ -219,5 +220,5 @@ Une collection complète a été créée pour tester :
 Développé dans le cadre du cours **420-514 – Collecte et interprétation de données (Cégep Marie-Victorin)**
 
 <p align="center">
-  🚀 API complète, sécurisée et documentée – 100 % TP2 validé 💪
+  🚀 API complète, sécurisée et documentée  💪
 </p>

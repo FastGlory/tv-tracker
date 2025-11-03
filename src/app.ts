@@ -13,8 +13,6 @@ import episodeRouteV2 from './v2/routes/episode.route';
 import ratingRouteV2 from './v2/routes/rating.route';
 import recommandationRouteV2 from './v2/routes/recommandation.route';
 import { securisationServer } from './common/securisationServer';
-import cors from 'cors';
-
 import dotenv from 'dotenv';
 import { connectDB } from './common/database';
 import swaggerUi from "swagger-ui-express";
@@ -44,7 +42,16 @@ app.use('/api/v2/series', episodeRouteV2);
 app.use('/api/v2/ratings', ratingRouteV2);
 app.use('/api/v2/reco', recommandationRouteV2);
 
-app.use("/docs/v2", swaggerUi.serve, swaggerUi.setup(swaggerV2));
+app.use("/docs/v1",
+  swaggerUi.serveFiles(swaggerV1),
+  swaggerUi.setup(swaggerV1,)
+);
+
+app.use("/docs/v2",
+  swaggerUi.serveFiles(swaggerV2),
+  swaggerUi.setup(swaggerV2,)
+);
+
 
 
 app.use(middlewareError);
