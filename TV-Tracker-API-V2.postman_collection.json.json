@@ -1,0 +1,971 @@
+{
+  "info": {
+    "_postman_id": "b1e1a3c1-9c77-4f5a-bc21-2ff9aa7b0f02",
+    "name": "TV-Tracker API v2",
+    "description": "Collection Postman complète pour tester l’API TV-Tracker (v2) avec toutes les routes, validations Zod, rôles, filtres, pagination et authentification JWT.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentification",
+      "item": [
+        {
+          "name": "Inscription (succès)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"nouveau.user@test.com\",\n  \"nom\": \"Utilisateur Test\",\n  \"username\": \"usertest\",\n  \"password\": \"User123!\",\n  \"role\": \"user\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] }
+          },
+          "response": [
+            {
+              "name": "Exemple de succès",
+              "originalRequest": {},
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"_id\": \"675e9df7a8d41f001e5bca10\",\n  \"email\": \"nouveau.user@test.com\",\n  \"username\": \"usertest\",\n  \"role\": \"user\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Statut 201 - Créé\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Inscription (erreur Zod - email invalide)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"invalidemail\",\n  \"nom\": \"Test\",\n  \"username\": \"invalidUser\",\n  \"password\": \"User123!\",\n  \"role\": \"user\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] }
+          },
+          "response": [
+            {
+              "name": "Erreur Zod email",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"message\": \"Erreur de validation\",\n  \"details\": [\n    {\n      \"path\": [\"email\"],\n      \"message\": \"L’adresse courriel est invalide. Veuillez entrer un format valide (exemple : utilisateur@domaine.com).\"\n    }\n  ]\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Statut 400 - Erreur de validation\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Connexion (admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@media.com\",\n  \"password\": \"Admin123!\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Statut 200 - Connexion admin\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token_admin', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Connexion (utilisateur)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@test.com\",\n  \"password\": \"User123!\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Statut 200 - Connexion utilisateur\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token_user', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "👥 Utilisateurs",
+      "item": [
+        {
+          "name": "Afficher profil (GET /users/me)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["users", "me"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Statut 200 - Profil utilisateur récupéré\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Exemple - Données utilisateur",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"_id\": \"671cf1a12a8cbb42cde4a002\",\n  \"email\": \"john.doe@test.com\",\n  \"username\": \"johndoe\",\n  \"role\": \"user\",\n  \"favorites\": [\"671cf1a12a8cbb42cde4a103\", \"671cf1a12a8cbb42cde4a104\"]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Mettre à jour profil (PATCH /users/me)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"johnupdated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["users", "me"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Statut 200 - Profil mis à jour\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Afficher un utilisateur (GET /users/:id) (admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/671cf1a12a8cbb42cde4a002",
+              "host": ["{{base_url}}"],
+              "path": ["users", "671cf1a12a8cbb42cde4a002"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Statut 200 - Utilisateur récupéré (admin)\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Erreur - accès interdit (user essaye GET /users/:id)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/671cf1a12a8cbb42cde4a002",
+              "host": ["{{base_url}}"],
+              "path": ["users", "671cf1a12a8cbb42cde4a002"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Statut 403 - Rôle non autorisé\", function () {",
+                  "  pm.response.to.have.status(403);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Exemple erreur rôle",
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"Accès interdit : rôle insuffisant.\" }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🎬 Films",
+      "item": [
+        {
+          "name": "Lister tous les films (GET /movies)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": { "raw": "{{base_url}}/movies", "host": ["{{base_url}}"], "path": ["movies"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 - Films récupérés', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Exemple - Liste de films",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "[\n  { \"_id\": \"671cf1a12a8cbb42cde4a101\", \"title\": \"Red Horizon\", \"genres\": [\"Action\", \"Sci-Fi\"], \"durationMin\": 123 },\n  { \"_id\": \"671cf1a12a8cbb42cde4a102\", \"title\": \"Neon Skies\", \"genres\": [\"Drama\", \"Thriller\"], \"durationMin\": 110 }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Lister les films filtrés (GET /movies?genre=Sci-Fi)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token_user}}" }],
+            "url": {
+              "raw": "{{base_url}}/movies?genre=Sci-Fi",
+              "host": ["{{base_url}}"],
+              "path": ["movies"],
+              "query": [{ "key": "genre", "value": "Sci-Fi" }]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 - Filtrage réussi', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Lister les films avec pagination (GET /movies?page=2&limit=5)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token_user}}" }],
+            "url": {
+              "raw": "{{base_url}}/movies?page=2&limit=5",
+              "host": ["{{base_url}}"],
+              "path": ["movies"],
+              "query": [
+                { "key": "page", "value": "2" },
+                { "key": "limit", "value": "5" }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 - Pagination OK', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Afficher un film par ID (GET /movies/:id)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token_user}}" }],
+            "url": {
+              "raw": "{{base_url}}/movies/671cf1a12a8cbb42cde4a101",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "671cf1a12a8cbb42cde4a101"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 - Film trouvé', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Créer un film (admin) (POST /movies)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Movie\",\n  \"genres\": [\"Action\"],\n  \"synopsis\": \"Film de test\",\n  \"durationMin\": 120\n}"
+            },
+            "url": { "raw": "{{base_url}}/movies", "host": ["{{base_url}}"], "path": ["movies"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 201 - Film créé', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Créer un film (erreur Zod - titre invalide)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"@@@@\",\n  \"genres\": [\"Action\"],\n  \"durationMin\": 120\n}"
+            },
+            "url": { "raw": "{{base_url}}/movies", "host": ["{{base_url}}"], "path": ["movies"] }
+          },
+          "response": [
+            {
+              "name": "Erreur titre Zod",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"Le titre doit comporter entre 1 et 200 caractères et ne contenir que des lettres, chiffres ou ponctuations simples.\" }"
+            }
+          ]
+        },
+        {
+          "name": "Mettre à jour un film (PATCH /movies/:id)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Red Horizon Updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/movies/671cf1a12a8cbb42cde4a101",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "671cf1a12a8cbb42cde4a101"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 - Film mis à jour', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Supprimer un film (DELETE /movies/:id)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/movies/671cf1a12a8cbb42cde4a120",
+              "host": ["{{base_url}}"],
+              "path": ["movies", "671cf1a12a8cbb42cde4a120"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 - Film supprimé', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📺 Séries et Saisons",
+      "item": [
+        {
+          "name": "Lister toutes les séries (GET /series)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": { "raw": "{{base_url}}/series", "host": ["{{base_url}}"], "path": ["series"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Séries récupérées', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrer les séries (GET /series?status=ongoing)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/series?status=ongoing",
+              "host": ["{{base_url}}"],
+              "path": ["series"],
+              "query": [{ "key": "status", "value": "ongoing" }]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Filtrage OK', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Créer une série (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Nouvelle Série\",\n  \"genres\": [\"Action\"],\n  \"status\": \"ongoing\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/series", "host": ["{{base_url}}"], "path": ["series"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 201 – Série créée', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Créer une série (erreur Zod – statut invalide)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"BadStatus\",\n  \"genres\": [\"Action\"],\n  \"status\": \"finished\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/series", "host": ["{{base_url}}"], "path": ["series"] }
+          },
+          "response": [
+            {
+              "name": "Erreur Zod statut",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"Le statut de la série doit être 'ongoing' ou 'ended'.\" }"
+            }
+          ]
+        },
+        {
+          "name": "Créer une saison (POST /series/:seriesId/seasons)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"seriesId\": \"671cf1a12a8cbb42cde4b001\",\n  \"seasonNo\": 3,\n  \"episodes\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/series/671cf1a12a8cbb42cde4b001/seasons",
+              "host": ["{{base_url}}"],
+              "path": ["series", "671cf1a12a8cbb42cde4b001", "seasons"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 201 – Saison créée', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Créer une saison (erreur Zod – seasonNo = 0)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"seriesId\": \"671cf1a12a8cbb42cde4b001\",\n  \"seasonNo\": 0,\n  \"episodes\": 10\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/series/671cf1a12a8cbb42cde4b001/seasons",
+              "host": ["{{base_url}}"],
+              "path": ["series", "671cf1a12a8cbb42cde4b001", "seasons"]
+            }
+          },
+          "response": [
+            {
+              "name": "Erreur Zod seasonNo",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"Le numéro de la saison doit être supérieur ou égal à 1.\" }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🎞️ Épisodes et Évaluations",
+      "item": [
+        {
+          "name": "Créer un épisode (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"epNo\": 3,\n  \"title\": \"Nouvel Épisode\",\n  \"durationMin\": 48\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/series/671cf1a12a8cbb42cde4b001/seasons/671cf1a12a8cbb42cde4c001/episodes",
+              "host": ["{{base_url}}"],
+              "path": ["series", "671cf1a12a8cbb42cde4b001", "seasons", "671cf1a12a8cbb42cde4c001", "episodes"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 201 – Épisode créé', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Créer un épisode (erreur Zod – titre invalide)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_admin}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"epNo\": 1,\n  \"title\": \"@@@@\",\n  \"durationMin\": 45\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/series/671cf1a12a8cbb42cde4b001/seasons/671cf1a12a8cbb42cde4c001/episodes",
+              "host": ["{{base_url}}"],
+              "path": ["series", "671cf1a12a8cbb42cde4b001", "seasons", "671cf1a12a8cbb42cde4c001", "episodes"]
+            }
+          },
+          "response": [
+            {
+              "name": "Erreur Zod titre",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"Le titre de l’épisode doit comporter entre 1 et 200 caractères valides.\" }"
+            }
+          ]
+        },
+        {
+          "name": "Lister les épisodes (GET /series/:seriesId/seasons/:seasonId/episodes)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/series/671cf1a12a8cbb42cde4b001/seasons/671cf1a12a8cbb42cde4c001/episodes",
+              "host": ["{{base_url}}"],
+              "path": ["series", "671cf1a12a8cbb42cde4b001", "seasons", "671cf1a12a8cbb42cde4c001", "episodes"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Épisodes récupérés', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filtrer les épisodes (GET …?minDuration=50)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/series/671cf1a12a8cbb42cde4b001/seasons/671cf1a12a8cbb42cde4c001/episodes?minDuration=50",
+              "host": ["{{base_url}}"],
+              "path": ["series", "671cf1a12a8cbb42cde4b001", "seasons", "671cf1a12a8cbb42cde4c001", "episodes"],
+              "query": [{ "key": "minDuration", "value": "50" }]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Filtrage OK', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Poster une évaluation (POST /ratings)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"671cf1a12a8cbb42cde4a002\",\n  \"target\": \"movie\",\n  \"targetId\": \"671cf1a12a8cbb42cde4a101\",\n  \"score\": 8,\n  \"review\": \"Très bon film !\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/ratings", "host": ["{{base_url}}"], "path": ["ratings"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 201 – Évaluation créée', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Poster une évaluation (erreur Zod – score > 10)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"671cf1a12a8cbb42cde4a002\",\n  \"target\": \"movie\",\n  \"targetId\": \"671cf1a12a8cbb42cde4a101\",\n  \"score\": 11\n}"
+            },
+            "url": { "raw": "{{base_url}}/ratings", "host": ["{{base_url}}"], "path": ["ratings"] }
+          },
+          "response": [
+            {
+              "name": "Erreur Zod score",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"La note maximale est de 10.\" }"
+            }
+          ]
+        },
+        {
+          "name": "Moyenne des notes film (GET /ratings/avg/movie/:id)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ratings/avg/movie/671cf1a12a8cbb42cde4a101",
+              "host": ["{{base_url}}"],
+              "path": ["ratings", "avg", "movie", "671cf1a12a8cbb42cde4a101"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Moyenne film OK', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Moyenne des notes série (GET /ratings/avg/series/:id)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/ratings/avg/series/671cf1a12a8cbb42cde4b001",
+              "host": ["{{base_url}}"],
+              "path": ["ratings", "avg", "series", "671cf1a12a8cbb42cde4b001"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Moyenne série OK', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🤖 Recommandations",
+      "item": [
+        {
+          "name": "Recommandations de films similaires (GET /reco/movies/similar/:movieId)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/reco/movies/similar/671cf1a12a8cbb42cde4a101",
+              "host": ["{{base_url}}"],
+              "path": ["reco", "movies", "similar", "671cf1a12a8cbb42cde4a101"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Statut 200 – Recommandations récupérées', function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "response": [
+            {
+              "name": "Exemple - Recommandations",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "body": "[\n  { \"_id\": \"671cf1a12a8cbb42cde4a116\", \"title\": \"Solar Vengeance\" },\n  { \"_id\": \"671cf1a12a8cbb42cde4a119\", \"title\": \"Eclipse Protocol\" }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Recommandations (erreur – id invalide)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token_user}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/reco/movies/similar/invalidId",
+              "host": ["{{base_url}}"],
+              "path": ["reco", "movies", "similar", "invalidId"]
+            }
+          },
+          "response": [
+            {
+              "name": "Erreur ID invalide",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{ \"message\": \"Identifiant du film invalide.\" }"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "https://localhost:3333/api/v2" },
+    { "key": "token_user", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDdlZGJlYjEwZTg0YzBlOWRjZWU5OSIsInJvbGUiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VydGVzdCIsImlhdCI6MTc2MjEyNzI5NCwiZXhwIjoxNzYyMTMwODk0fQ.9PBOCRILHNVBZtarxThDmF5EXi1YAU4q0PbRLCmXMnI" },
+    { "key": "token_admin", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWNmMWExMmE4Y2JiNDJjZGU0YTAwMSIsInJvbGUiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3NjIxMjczMTksImV4cCI6MTc2MjEzMDkxOX0.gVn12Li-CegyW3olw7wIGQ7x9YHq0n-UJEGpzZsX-EQ" }
+  ]
+}

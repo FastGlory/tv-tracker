@@ -28,5 +28,6 @@ export const securisationServer = (app: Express) => {
 // https://www.npmjs.com/package/config
 
 
-// attaque possible : 
+// attaque possible : (Générer par AI)
 // for i in {1..120}; do curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/api/v2/movies; done
+// seq 1 120 | xargs -n1 -P20 -I{} curl -s -o /dev/null -w "%{http_code}\n" -k https://localhost:3333/api/v2/movies

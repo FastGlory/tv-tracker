@@ -1,0 +1,287 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API TV Tracker v1",
+    "version": "1.0.0",
+    "description": "Version initiale de l’API TV Tracker (TP1). Elle utilise un fichier JSON local comme base de données et est désormais dépréciée depuis la sortie de la v2."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/media": {
+      "get": {
+        "summary": "Lister tous les médias",
+        "tags": ["Médias"],
+        "deprecated": true,
+        "responses": {
+          "200": { "description": "Liste des médias retournée" },
+          "500": { "description": "Erreur serveur" }
+        }
+      },
+      "post": {
+        "summary": "Ajouter un nouveau média",
+        "tags": ["Médias"],
+        "deprecated": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Media" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Média ajouté" },
+          "400": { "description": "Erreur de validation" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/media/{id}": {
+      "get": {
+        "summary": "Obtenir un média par son identifiant",
+        "tags": ["Médias"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Média trouvé" },
+          "404": { "description": "Média non trouvé" }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un média",
+        "tags": ["Médias"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Media" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Média mis à jour" },
+          "400": { "description": "Erreur de validation" },
+          "500": { "description": "Erreur serveur" }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un média",
+        "tags": ["Médias"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Média supprimé" },
+          "404": { "description": "Média non trouvé" }
+        }
+      }
+    },
+    "/mediaFilter": {
+      "get": {
+        "summary": "Filtrer les médias par type, genre ou année",
+        "tags": ["Médias"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "type", "in": "query", "schema": { "type": "string" }, "description": "Type du média (film ou série)" },
+          { "name": "genre", "in": "query", "schema": { "type": "string" }, "description": "Genre du média" },
+          { "name": "year", "in": "query", "schema": { "type": "integer" }, "description": "Année de sortie" }
+        ],
+        "responses": {
+          "200": { "description": "Liste des médias filtrés" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/series/{id}/episodes": {
+      "get": {
+        "summary": "Lister tous les épisodes d’une série",
+        "tags": ["Séries"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Liste des épisodes retournée" },
+          "404": { "description": "Série non trouvée" }
+        }
+      },
+      "post": {
+        "summary": "Ajouter un épisode à une série",
+        "tags": ["Séries"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Episode" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Épisode ajouté à la série" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/series/{id}/seasons": {
+      "post": {
+        "summary": "Ajouter une saison à une série",
+        "tags": ["Séries"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Season" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Saison ajoutée à la série" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/series/{serieId}/seasons/{seasonNumber}/episodes/{episodeId}": {
+      "patch": {
+        "summary": "Marquer un épisode comme visionné",
+        "tags": ["Séries"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "serieId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "seasonNumber", "in": "path", "required": true, "schema": { "type": "integer" } },
+          { "name": "episodeId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Épisode marqué comme visionné" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/users/{id}/favorites": {
+      "get": {
+        "summary": "Obtenir les médias favoris d’un utilisateur",
+        "tags": ["Utilisateurs"],
+        "deprecated": true,
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Liste des médias favoris" },
+          "404": { "description": "Aucun favori trouvé" }
+        }
+      }
+    },
+    "/log": {
+      "get": {
+        "summary": "Obtenir la dernière ligne du fichier de logs",
+        "tags": ["Logs"],
+        "deprecated": true,
+        "responses": {
+          "200": { "description": "Dernière ligne du log retournée" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Media": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "example": "Inception" },
+          "genre": { "type": "string", "example": "Science-fiction" },
+          "year": { "type": "integer", "example": 2010 },
+          "rating": { "type": "number", "example": 8.8 },
+          "plateform": { "type": "string", "example": "Netflix" }
+        }
+      },
+      "Season": {
+        "type": "object",
+        "properties": {
+          "seasonNumber": { "type": "integer", "example": 1 },
+          "releaseDate": { "type": "string", "format": "date", "example": "2023-01-10" },
+          "Episodes": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Episode" }
+          }
+        }
+      },
+      "Episode": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "ep001" },
+          "title": { "type": "string", "example": "Pilote" },
+          "duration": { "type": "integer", "example": 45 },
+          "episodeNumber": { "type": "integer", "example": 1 },
+          "watched": { "type": "boolean", "example": false }
+        }
+      },
+        "User": {
+    "type": "object",
+    "properties": {
+        "id": { "type": "string", "example": "usr12345" },
+        "email": { "type": "string", "format": "email", "example": "john.doe@example.com" },
+        "password": { "type": "string", "example": "User123!" },
+        "role": { "type": "string", "enum": ["admin", "user"], "example": "user" },
+        "favorites": {
+        "type": "array",
+        "items": { "$ref": "#/components/schemas/Media" },
+        "example": [
+            {
+            "title": "Inception",
+            "genre": "Science-fiction",
+            "year": 2010,
+            "rating": 8.8,
+            "plateform": "Netflix"
+            }
+        ]
+        }
+    }
+    }
+
+    },"film": {
+        "type": "object",
+        "properties": {
+            "title": { "type": "string", "example": "Inception" },
+            "genre": { "type": "string", "example": "Science-fiction" },
+            "year": { "type": "integer", "example": 2010 },
+            "rating": { "type": "number", "example": 8.8 },
+            "plateform": { "type": "string", "example": "Netflix" },
+            "duration": { "type": "integer", "example": 135},
+            "watched":{ "type": "boolean", "example": true}
+        }
+  }, "serie": {
+        "type": "object",
+        "properties": {
+            "title": { "type": "string", "example": "Stranger Things" },
+            "genre": { "type": "string", "example": "Science-fiction" },
+            "year": { "type": "integer", "example": 2016 },
+            "status": { "type": "string", "enum": ["En cours", "Terminée"], "example": "Terminée" },
+            "seasons": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/Season" }
+            }
+        }
+    }
+  }
+}
+  
+

@@ -17,6 +17,10 @@ import cors from 'cors';
 
 import dotenv from 'dotenv';
 import { connectDB } from './common/database';
+import swaggerUi from "swagger-ui-express";
+import swaggerV2 from "../src/docs/swagger-v2.json";
+import swaggerV1 from "../src/docs/swagger-v1.json";
+
 
 dotenv.config();
 connectDB(); 
@@ -26,10 +30,10 @@ app.use(express.json());
 
 securisationServer(app);
 
-app.use('/api', mediaRoutes);
-app.use('/api', userRoutes);
-app.use('/api', serieRoutes);
-app.use('/api',logRoutes);
+app.use('/api/v1', mediaRoutes);
+app.use('/api/v1', userRoutes);
+app.use('/api/v1', serieRoutes);
+app.use('/api/v1',logRoutes);
 
 app.use('/api/v2/users', userRoutesV2);
 app.use('/api/v2/auth', authRoutesV2);
@@ -39,6 +43,9 @@ app.use('/api/v2/series', seasonRouteV2);
 app.use('/api/v2/series', episodeRouteV2);
 app.use('/api/v2/ratings', ratingRouteV2);
 app.use('/api/v2/reco', recommandationRouteV2);
+
+app.use("/docs/v2", swaggerUi.serve, swaggerUi.setup(swaggerV2));
+
 
 app.use(middlewareError);
 

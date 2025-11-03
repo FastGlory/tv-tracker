@@ -1,0 +1,510 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API TV Tracker v2",
+    "version": "2.0.0",
+    "description": "API RESTful pour la gestion des utilisateurs, films, séries, saisons, épisodes et notations. Authentification sécurisée via JWT et rôles (user / admin)."
+  },
+    "servers": [
+      
+    {
+        "url": "https://localhost:3333/api/v2",
+        "description": "Serveur local HTTPS (sécurisé)"
+    },
+    {
+        "url": "http://localhost:3000/api/v2",
+        "description": "Serveur local HTTP (développement)"
+    }
+    ]
+,
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Créer un nouvel utilisateur",
+        "tags": ["Authentification"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegister"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Utilisateur créé avec succès" },
+          "400": { "description": "Erreur de validation (Zod)" },
+          "409": { "description": "Email déjà utilisé" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Authentifier un utilisateur et retourner un token JWT",
+        "tags": ["Authentification"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Authentification réussie" },
+          "401": { "description": "Identifiants invalides" }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "summary": "Obtenir les informations du profil connecté",
+        "tags": ["Utilisateurs"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Profil récupéré avec succès" },
+          "401": { "description": "Non authentifié" }
+        }
+      },
+      "patch": {
+        "summary": "Mettre à jour le profil connecté",
+        "tags": ["Utilisateurs"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Profil mis à jour" },
+          "400": { "description": "Erreur de validation" },
+          "401": { "description": "Non authentifié" }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Obtenir un utilisateur par ID (admin uniquement)",
+        "tags": ["Utilisateurs"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant MongoDB de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Utilisateur trouvé" },
+          "401": { "description": "Non authentifié" },
+          "403": { "description": "Non autorisé" },
+          "404": { "description": "Utilisateur introuvable" }
+        }
+      }
+    },
+    "/movies": {
+      "get": {
+        "summary": "Lister les films avec filtres et pagination",
+        "tags": ["Films"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "title", "in": "query", "schema": { "type": "string" }, "description": "Filtrer par titre (regex insensible à la casse)" },
+          { "name": "genre", "in": "query", "schema": { "type": "string" }, "description": "Filtrer par genre" },
+          { "name": "minYear", "in": "query", "schema": { "type": "integer" }, "description": "Filtrer par année minimale de sortie" },
+          { "name": "maxDur", "in": "query", "schema": { "type": "integer" }, "description": "Filtrer par durée maximale (en minutes)" },
+          { "name": "page", "in": "query", "schema": { "type": "integer" }, "description": "Page courante de la pagination" },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" }, "description": "Nombre d'éléments par page" }
+        ],
+        "responses": {
+          "200": { "description": "Liste paginée des films" },
+          "401": { "description": "Non authentifié" }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau film (admin uniquement)",
+        "tags": ["Films"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Movie" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Film créé avec succès" },
+          "400": { "description": "Erreur de validation" },
+          "403": { "description": "Non autorisé" }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "get": {
+        "summary": "Obtenir un film par son ID",
+        "tags": ["Films"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Identifiant du film" }
+        ],
+        "responses": {
+          "200": { "description": "Film trouvé" },
+          "404": { "description": "Film introuvable" }
+        }
+      },
+      "patch": {
+        "summary": "Modifier un film existant (admin uniquement)",
+        "tags": ["Films"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Identifiant du film" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Movie" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Film mis à jour" },
+          "400": { "description": "Erreur de validation" },
+          "403": { "description": "Non autorisé" }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un film (admin uniquement)",
+        "tags": ["Films"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" }, "description": "Identifiant du film" }
+        ],
+        "responses": {
+          "200": { "description": "Film supprimé avec succès" },
+          "403": { "description": "Non autorisé" },
+          "404": { "description": "Film introuvable" }
+        }
+      }
+    },
+    "/series": {
+      "get": {
+        "summary": "Lister les séries avec filtres",
+        "tags": ["Séries"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "title", "in": "query", "schema": { "type": "string" }, "description": "Filtrer par titre" },
+          { "name": "genre", "in": "query", "schema": { "type": "string" }, "description": "Filtrer par genre" },
+          { "name": "status", "in": "query", "schema": { "type": "string", "enum": ["ongoing", "ended"] }, "description": "Filtrer par statut de série" }
+        ],
+        "responses": {
+          "200": { "description": "Liste des séries filtrées" },
+          "500": { "description": "Erreur serveur" }
+        }
+      },
+      "post": {
+        "summary": "Créer une nouvelle série (admin uniquement)",
+        "tags": ["Séries"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Series" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Série créée" },
+          "400": { "description": "Erreur de validation" },
+          "403": { "description": "Non autorisé" }
+        }
+      }
+    },
+    "/series/{seriesId}/seasons": {
+      "post": {
+        "summary": "Créer une saison pour une série (admin uniquement)",
+        "tags": ["Saisons"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant de la série"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Season" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Saison créée" },
+          "400": { "description": "Erreur de validation" },
+          "403": { "description": "Non autorisé" }
+        }
+      }
+    },
+    "/series/{seriesId}/seasons/{seasonId}/episodes": {
+      "post": {
+        "summary": "Créer un épisode pour une saison (admin uniquement)",
+        "tags": ["Épisodes"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant de la série"
+          },
+          {
+            "name": "seasonId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant de la saison"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Episode" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Épisode créé" },
+          "400": { "description": "Erreur de validation" },
+          "403": { "description": "Non autorisé" }
+        }
+      },
+      "get": {
+        "summary": "Lister les épisodes d'une saison avec filtre de durée",
+        "tags": ["Épisodes"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant de la série"
+          },
+          {
+            "name": "seasonId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant de la saison"
+          },
+          {
+            "name": "minDuration",
+            "in": "query",
+            "schema": { "type": "integer" },
+            "description": "Durée minimale (en minutes)"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Liste des épisodes trouvés" },
+          "400": { "description": "Durée minimale invalide" },
+          "500": { "description": "Erreur serveur" }
+        }
+      }
+    },
+    "/ratings": {
+      "post": {
+        "summary": "Créer une notation (utilisateur connecté)",
+        "tags": ["Notations"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Rating" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Note enregistrée" },
+          "400": { "description": "Erreur de validation" },
+          "401": { "description": "Non authentifié" }
+        }
+      }
+    },
+    "/ratings/avg/movie/{movieId}": {
+      "get": {
+        "summary": "Obtenir la moyenne des notes d'un film",
+        "tags": ["Notations"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant du film"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Moyenne calculée avec succès" },
+          "404": { "description": "Aucune note trouvée pour ce film" }
+        }
+      }
+    },
+    "/ratings/avg/series/{seriesId}": {
+      "get": {
+        "summary": "Obtenir la moyenne des notes d'une série (agrégation sur épisodes)",
+        "tags": ["Notations"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "seriesId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant de la série"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Moyenne calculée avec succès" },
+          "404": { "description": "Aucune note trouvée pour cette série" }
+        }
+      }
+    },
+    "/reco/movies/similar/{movieId}": {
+      "get": {
+        "summary": "Recommandations de films similaires en durée",
+        "tags": ["Recommandations"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Identifiant du film"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Films similaires retournés avec succès" },
+          "404": { "description": "Aucun film similaire trouvé" },
+          "400": { "description": "Paramètres invalides" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "UserRegister": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "format": "email", "example": "john.doe@example.com" },
+          "nom": { "type": "string", "example": "John Doe" },
+          "username": { "type": "string", "example": "johndoe21" },
+          "password": { "type": "string", "minLength": 8, "example": "User123!" }
+        },
+        "required": ["email", "nom", "username", "password"]
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "format": "email", "example": "john.doe@example.com" },
+          "password": { "type": "string", "example": "User123!" }
+        },
+        "required": ["email", "password"]
+      },
+      "UserPatch": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string", "example": "newUser42" },
+          "favorites": {
+            "type": "array",
+            "items": { "type": "string", "example": "6752df92aa33bba51a9d202c" }
+          }
+        }
+      },
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 200, "example": "Inception" },
+          "genres": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1, "maxLength": 30, "example": "Sci-Fi" }
+          },
+          "synopsis": { "type": "string", "maxLength": 1000, "example": "Un voleur d'idées pénètre les rêves de ses victimes." },
+          "releaseDate": { "type": "string", "format": "date", "example": "2010-07-16" },
+          "durationMin": { "type": "integer", "minimum": 1, "maximum": 600, "example": 148 }
+        },
+        "required": ["title", "genres", "durationMin"]
+      },
+      "Series": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 200, "example": "Breaking Bad" },
+          "genres": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1, "maxLength": 30, "example": "Crime" }
+          },
+          "status": { "type": "string", "enum": ["ongoing", "ended"], "example": "ended" }
+        },
+        "required": ["title", "genres", "status"]
+      },
+      "Season": {
+        "type": "object",
+        "properties": {
+          "seriesId": { "type": "string", "example": "6752df92aa33bba51a9d201f" },
+          "seasonNo": { "type": "integer", "minimum": 1, "example": 1 },
+          "episodes": { "type": "integer", "minimum": 0, "example": 10 }
+        },
+        "required": ["seasonNo", "episodes"]
+      },
+      "Episode": {
+        "type": "object",
+        "properties": {
+          "seriesId": { "type": "string", "example": "6752df92aa33bba51a9d201f" },
+          "seasonId": { "type": "string", "example": "6752df92aa33bba51a9d202b" },
+          "epNo": { "type": "integer", "minimum": 1, "example": 3 },
+          "title": { "type": "string", "minLength": 1, "maxLength": 200, "example": "The Heist" },
+          "durationMin": { "type": "integer", "minimum": 1, "maximum": 300, "example": 42 }
+        },
+        "required": ["seriesId", "seasonId", "epNo", "title", "durationMin"]
+      },
+      "Rating": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string", "example": "671cf1a12a8cbb42cde4a002" },
+          "target": { "type": "string", "enum": ["movie", "episode"], "example": "movie" },
+          "targetId": { "type": "string", "example": "671cf1a12a8cbb42cde4a101" },
+          "score": { "type": "number", "minimum": 0, "maximum": 10, "example": 8.5 },
+          "review": { "type": "string", "maxLength": 2000, "example": "Un excellent film avec un scénario complexe." }
+        },
+        "required": ["userId", "target", "targetId", "score"]
+      }
+    }
+  }
+}
