@@ -38,6 +38,23 @@ Cette version **v2** introduit :
 
 ---
 
+## ‼️ Choix de version
+```bash
+# Version v1
+
+git checkout v1.00
+
+# Version v2 
+
+git checkout v2.00
+
+
+## Si cela ne fonctionne pas. la branche main pour la v1 ou la branche develop-v2 pour la v2
+
+```
+
+
+
 ## 🚀 Installation & Configuration
 
 ```bash
