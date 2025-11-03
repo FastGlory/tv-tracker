@@ -49,17 +49,18 @@ cd tv-tracker
 npm install
 
 # 3. Créer un fichier .env à partir de l’exemple
-cp .env.example .env
+cp .env.exemple .env
 
-# Générer les certificats auto-signés (valide 365 jours)
-mkdir cert
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout cert/key.pem -out cert/cert.pem \
-  -subj "/C=CA/ST=Quebec/L=Montreal/O=TVTracker/OU=Dev/CN=localhost"
+# 4. Générer la clé privée et le CSR
+mkdir -p cert
+openssl req -new -newkey rsa:2048 -nodes \
+  -keyout cert/key.pem -out cert/csr.pem \
+  -subj "//C=CA/ST=Quebec/L=Montreal/O=TVTracker/OU=Dev/CN=localhost"
+# 5.
+openssl x509 -req -days 365 -in cert/csr.pem -signkey cert/key.pem -out cert/cert.pem
 
-
-# 4. Lancer le serveur
-npm run dev
+# 6. Lancer le serveur
+npm start
 ```
 
 ---
@@ -200,7 +201,7 @@ Une collection complète a été créée pour tester :
 ## 📁 Collection Postman
 
 👉 Importez la collection Postman pour tester rapidement tous les endpoints :  
-🔗 [Lien vers la collection](https://documenter.getpostman.com/view/33928412/2sB3WpRg7G#b3456fb1-3634-4d42-9320-69ba3fcfd71c)
+🔗 [Lien vers la collection](https://documenter.getpostman.com/view/33928412/2sB3WpRgBa)
 ---
 
 ## 📘 Documentation Swagger

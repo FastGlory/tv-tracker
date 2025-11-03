@@ -965,7 +965,7 @@
   ],
   "variable": [
     { "key": "base_url", "value": "https://localhost:3333/api/v2" },
-    { "key": "token_user", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MDdlZGJlYjEwZTg0YzBlOWRjZWU5OSIsInJvbGUiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VydGVzdCIsImlhdCI6MTc2MjEyNzI5NCwiZXhwIjoxNzYyMTMwODk0fQ.9PBOCRILHNVBZtarxThDmF5EXi1YAU4q0PbRLCmXMnI" },
-    { "key": "token_admin", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWNmMWExMmE4Y2JiNDJjZGU0YTAwMSIsInJvbGUiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3NjIxMjczMTksImV4cCI6MTc2MjEzMDkxOX0.gVn12Li-CegyW3olw7wIGQ7x9YHq0n-UJEGpzZsX-EQ" }
+    { "key": "token_user", "value": "" },
+    { "key": "token_admin", "value": "" }
   ]
 }
