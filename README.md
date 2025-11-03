@@ -97,8 +97,7 @@ npm start
 ## 📁 Collection Postman
 
 👉 Importez la collection Postman pour tester rapidement tous les endpoints :  
-🔗 [Lien vers la collection](https://documenter.getpostman.com/view/33928412/2sB3WpRg7F)
-
+🔗 [Lien vers la collection](https://documenter.getpostman.com/view/33928412/2sB3WpRgBZ)
 ---
 
 ## 👨‍💻 Auteur
